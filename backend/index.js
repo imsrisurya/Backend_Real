@@ -1,0 +1,33 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const vendorRoutes = require('./routes/vendorRoutes');
+const firmRoutes=require('./routes/FirmRoutes')
+const productRoutes=require('./routes/productRoutes');
+const path = require("path");
+require('dotenv').config();
+
+const app = express();
+const port = 4000;
+
+// middleware
+app.use(bodyParser.json());
+app.use('/Firm',firmRoutes)
+app.use('/product',productRoutes)
+app.use('/uploads',express.static('uploads'))
+// routes
+app.get('/home', (req, res) => {
+  res.send('WELCOME TO FIRST');
+});
+
+app.use('/vendor', vendorRoutes);
+
+// mongodb (optional for server)
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch(err => console.log('MongoDB error:', err.message));
+
+// 🚨 MUST BE LAST
+app.listen(port, () => {
+  console.log(`Server started and running at ${port}`);
+});
