@@ -8,7 +8,7 @@ const path = require("path");
 require('dotenv').config();
 
 const app = express();
-const port = 4000;
+const port =process.env.PORT || 4000;
 
 // middleware
 app.use(bodyParser.json());
@@ -16,7 +16,7 @@ app.use('/Firm',firmRoutes)
 app.use('/product',productRoutes)
 app.use('/uploads',express.static('uploads'))
 // routes
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
   res.send('WELCOME TO FIRST');
 });
 
