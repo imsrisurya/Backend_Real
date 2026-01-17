@@ -5,11 +5,13 @@ const vendorRoutes = require('./routes/vendorRoutes');
 const firmRoutes=require('./routes/FirmRoutes')
 const productRoutes=require('./routes/productRoutes');
 const path = require("path");
+const cors=require('cors');
+
 require('dotenv').config();
 
 const app = express();
 const port =process.env.PORT||4000;
-
+app.use(cors());
 // middleware
 app.use(bodyParser.json());
 app.use('/Firm',firmRoutes)
